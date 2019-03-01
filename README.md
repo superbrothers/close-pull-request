@@ -16,7 +16,7 @@ action "Auto Close" {
   uses = "superbrothers/auto-close-action"
   env = {
     # Optional. Post a issue comment just before closing a pull request.
-    COMMENT = "We do not accept PRs. If you have any questions, please feel free to connect us."
+    COMMENT = "We do not accept PRs. If you have any questions, please feel free to contact us."
   }
   secrets = ["GITHUB_TOKEN"]
 }
