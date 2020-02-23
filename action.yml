@@ -1,0 +1,13 @@
+name: "Close Pull Request"
+description: "A GitHub action to automatically close a pull request."
+author: "Kazuki Suda"
+inputs:
+  comment:
+    description: "Post a issue comment just before closing a pull request."
+    required: false
+runs:
+  using: "node12"
+  main: "dist/index.js"
+branding:
+  icon: "slash"
+  color: "red"
