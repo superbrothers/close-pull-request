@@ -3973,7 +3973,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 const run = async () => {
   const context = github.context;
 
-  if (context.eventName !== "pull_request") {
+  if (context.eventName !== "pull_request_target") {
     throw errors.ignoreEvent;
   }
 
@@ -8982,7 +8982,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.noToken = exports.ignoreEvent = void 0;
-const ignoreEvent = new Error("Ignoring this event (only listens for 'pull_request')");
+const ignoreEvent = new Error("Ignoring this event (only listens for 'pull_request_target')");
 exports.ignoreEvent = ignoreEvent;
 const noToken = new Error("You have to provide the GITHUB_TOKEN inside your secrets configuration and provide it as an env variable");
 exports.noToken = noToken;
