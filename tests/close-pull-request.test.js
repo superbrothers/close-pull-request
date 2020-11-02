@@ -15,7 +15,7 @@ describe("Close Pull Request", () => {
     update = jest.fn().mockResolvedValue();
     createComment = jest.fn().mockResolvedValue();
 
-    context.eventName = "pull_request";
+    context.eventName = "pull_request_target";
 
     context.repo = {
       owner: "owner",
@@ -49,7 +49,7 @@ describe("Close Pull Request", () => {
     });
   });
 
-  describe("when event type is not pull_request", () => {
+  describe("when event type is not pull_request_target", () => {
     beforeEach(() => {
       context.eventName = "push";
     });

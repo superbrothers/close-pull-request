@@ -2,17 +2,17 @@
 
 A GitHub action to automatically close a pull request.
 
-Note that only pull requests being opened from the same repository can be closed. This action will not currently work for pull requests from forks -- like is common in open source projects -- because the token for forked pull request workflows does not have write permissions.
-
 ## Usage
 
-This Action subscribes to `pull_request` events. When receiving a `pull_request` event, this action closes the pull request triggered by the event immediately.
+This Action subscribes to `pull_request_target` events. When receiving a `pull_request_target` event, this action closes the pull request triggered by the event immediately.
+
+See [Events that trigger workflows](https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#pull_request_target) for more details about the `pull_request_target` event.
 
 ```yaml
 name: Close Pull Request
 
 on:
-  pull_request:
+  pull_request_target:
     types: [opened]
 
 jobs:
