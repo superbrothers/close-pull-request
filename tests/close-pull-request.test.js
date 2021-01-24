@@ -8,9 +8,13 @@ import * as errors from "../src/errors";
 describe("Close Pull Request", () => {
   let update;
   let createComment;
+  let inputs;
 
   beforeEach(() => {
-    process.env.GITHUB_TOKEN = "token";
+    inputs = { github_token: "token" };
+    core.getInput = jest.fn().mockImplementation(name => {
+      return inputs[name];
+    });
 
     update = jest.fn().mockResolvedValue();
     createComment = jest.fn().mockResolvedValue();
@@ -39,6 +43,10 @@ describe("Close Pull Request", () => {
     GitHub.mockImplementation(() => github);
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("should update a pull request", async () => {
     await run();
 
@@ -59,26 +67,35 @@ describe("Close Pull Request", () => {
     });
   });
 
-  describe("when GITHUB_TOKEN env variable is not set", () => {
+  describe("when GITHUB_TOKEN env variable is set", () => {
+    let warnSpy;
+
     beforeEach(() => {
+      process.env.GITHUB_TOKEN = "token";
+      warnSpy = jest.spyOn(core, "warning");
+    });
+
+    afterEach(() => {
       delete process.env.GITHUB_TOKEN;
     });
 
     it("should throw 'no token' error", async () => {
-      await expect(run()).rejects.toEqual(errors.noToken);
+      await run();
+
+      expect(warnSpy).toHaveBeenCalled();
+      expect(update).toHaveBeenCalledWith({
+        ...context.repo,
+        pull_number: context.issue.number,
+        state: "closed"
+      });
     });
   });
 
   describe("when 'comment' input is passed", () => {
-    let comment = "comment";
+    const comment = "comment";
 
     beforeEach(() => {
-      core.getInput = jest.fn().mockImplementation(name => {
-        if (name === "comment") {
-          return comment;
-        }
-        return "";
-      });
+      inputs["comment"] = comment;
     });
 
     it("should create a comment", async () => {

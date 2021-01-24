@@ -4039,15 +4039,18 @@ const run = async () => {
     throw errors.ignoreEvent;
   }
 
-  const token = process.env["GITHUB_TOKEN"] || "";
+  let token = process.env["GITHUB_TOKEN"] || "";
 
   if (token === "") {
-    throw errors.noToken;
+    token = core.getInput("github_token");
+  } else {
+    core.warning("GITHUB_TOKEN environment variable is deprecated.");
+    core.warning("GitHub Token is passed automatically, so no longer needs to be set.");
   }
 
   const client = new github.GitHub(token); // *Optional*. Post an issue comment just before closing a pull request.
 
-  const body = core.getInput("comment");
+  const body = core.getInput("comment") || "";
 
   if (body.length > 0) {
     core.info("Creating a comment");
