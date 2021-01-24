@@ -23,8 +23,6 @@ jobs:
       with:
         # Optional. Post a issue comment just before closing a pull request.
         comment: "We do not accept PRs. If you have any questions, please feel free to contact us."
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Inputs
