@@ -12,9 +12,11 @@ describe("Close Pull Request", () => {
 
   beforeEach(() => {
     inputs = { github_token: "token" };
-    core.getInput = jest.fn().mockImplementation(name => {
-      return inputs[name];
-    });
+    ((core) => {
+      core.getInput = jest.fn().mockImplementation((name) => {
+        return inputs[name];
+      });
+    })(core);
 
     update = jest.fn().mockResolvedValue();
     createComment = jest.fn().mockResolvedValue();
@@ -23,21 +25,21 @@ describe("Close Pull Request", () => {
 
     context.repo = {
       owner: "owner",
-      repo: "repo"
+      repo: "repo",
     };
 
     context.issue = {
       ...context.repo,
-      number: 1
+      number: 1,
     };
 
     const github = {
       issues: {
-        createComment
+        createComment,
       },
       pulls: {
-        update
-      }
+        update,
+      },
     };
 
     GitHub.mockImplementation(() => github);
@@ -53,7 +55,7 @@ describe("Close Pull Request", () => {
     expect(update).toHaveBeenCalledWith({
       ...context.repo,
       pull_number: context.issue.number,
-      state: "closed"
+      state: "closed",
     });
   });
 
@@ -86,7 +88,7 @@ describe("Close Pull Request", () => {
       expect(update).toHaveBeenCalledWith({
         ...context.repo,
         pull_number: context.issue.number,
-        state: "closed"
+        state: "closed",
       });
     });
   });
@@ -103,7 +105,7 @@ describe("Close Pull Request", () => {
       expect(createComment).toHaveBeenCalledWith({
         ...context.repo,
         issue_number: context.issue.number,
-        body: comment
+        body: comment,
       });
     });
 
@@ -113,7 +115,7 @@ describe("Close Pull Request", () => {
       expect(update).toHaveBeenCalledWith({
         ...context.repo,
         pull_number: context.issue.number,
-        state: "closed"
+        state: "closed",
       });
     });
   });
