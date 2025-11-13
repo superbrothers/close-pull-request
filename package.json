@@ -21,8 +21,8 @@
   },
   "homepage": "https://github.com/superbrothers/close-pull-request#readme",
   "dependencies": {
-    "@actions/core": "^1.9.1",
-    "@actions/github": "^2.1.1"
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.0",
@@ -30,7 +30,7 @@
     "@babel/eslint-parser": "^7.17.0",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
-    "@vercel/ncc": "^0.33.3",
+    "@vercel/ncc": "^0.38.4",
     "eslint": "^8.9.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jest": "^26.1.0",
